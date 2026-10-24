@@ -1,0 +1,336 @@
+@import "tailwindcss" source(none);
+@source "../src";
+/*
+ * Renz Eryll — portfolio design system.
+ * Motif: coordinate / grid system (section numbers, guides, annotations).
+ * Logo-led palette: violet, cool white, and dark ink.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-foreground);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-dim: var(--accent-dim);
+  --color-destructive: oklch(0.62 0.21 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--border);
+  --color-ring: var(--accent);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --radius: 4px;
+  --background: #f0f2f5;
+  --surface: #ffffff;
+  --surface-2: #e8eaf0;
+  --foreground: #15121c;
+  --muted-foreground: #5d5966;
+  --border: rgb(21 18 28 / 12%);
+  --border-strong: rgb(21 18 28 / 26%);
+  --accent: #7a35ff;
+  --accent-dim: rgb(122 53 255 / 30%);
+  --accent-foreground: #ffffff;
+
+  --container: 1240px;
+  --page-padding: clamp(20px, 5vw, 72px);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #121016;
+  --surface: #1b1821;
+  --surface-2: #24202c;
+  --foreground: #f0f2f5;
+  --muted-foreground: #aaa5b2;
+  --border: rgb(240 242 245 / 10%);
+  --border-strong: rgb(240 242 245 / 22%);
+  --accent: #8f5aff;
+  --accent-dim: rgb(122 53 255 / 42%);
+  --accent-foreground: #ffffff;
+}
+
+:root:not([data-theme="dark"]) .logo-adaptive {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+:root[data-theme="dark"] .tech-logo-mono {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv05";
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+}
+
+/* ---------- layout ---------- */
+
+@utility shell {
+  width: 100%;
+  max-width: calc(var(--container) + var(--page-padding) * 2);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+@utility rule-t {
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- typography helpers ---------- */
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility display {
+  font-size: clamp(2.1rem, 5.4vw, 4.1rem);
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+/* ---------- motion system ---------- */
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s var(--ease) var(--d, 0ms),
+    transform 0.8s var(--ease) var(--d, 0ms);
+
+  &.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility line-mask {
+  display: block;
+  overflow: hidden;
+
+  & > span {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 0.9s var(--ease) var(--d, 0ms);
+  }
+
+  &.is-in > span {
+    transform: none;
+  }
+}
+
+@utility grow-x {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s var(--ease) var(--d, 0ms);
+
+  &.is-in {
+    transform: scaleX(1);
+  }
+}
+
+@utility arrow {
+  display: inline-block;
+  transition: transform 0.35s var(--ease);
+}
+
+@utility link-line {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  &:hover .arrow {
+    transform: translate(4px, -4px);
+  }
+}
+
+/* ---------- motifs ---------- */
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 88px 88px;
+}
+
+@utility dot-live {
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 10px 1px var(--accent-dim);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent);
+    animation: pulse-ring 2.4s var(--ease) infinite;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--speed, 42s) linear infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+}
+
+@utility caret {
+  animation: caret 1.4s steps(1) infinite;
+}
+
+@keyframes nudge-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal,
+  .grow-x {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .line-mask > span {
+    transform: none !important;
+  }
+}
