@@ -111,6 +111,50 @@ export const FEATURED: Project[] = [
     code: "https://github.com/Renz-Eryll/Legaforce",
   },
   {
+    slug: "relay",
+    name: "Relay",
+    tagline: "Support desk for customers, agents and admins",
+    kind: "Personal project",
+    year: "2026",
+    summary: "Tickets routed by category, one conversation thread each, and every change in an audit trail.",
+    notes: [
+      "Role checks on every server action, one permissions module",
+      "Agent queues, assignment, notifications, admin metrics",
+      "Hashed, rate-limited password-reset codes",
+    ],
+    stack: ["Next.js", "TypeScript", "Drizzle", "PostgreSQL", "Zod"],
+    image: {
+      src: "/images/relay-banner.webp",
+      alt: "Relay support desk on desktop and mobile",
+      w: 800,
+      h: 435,
+    },
+    live: "https://relay-desk.vercel.app",
+    code: "https://github.com/Renz-Eryll/Relay",
+  },
+  {
+    slug: "beemo",
+    name: "BeeMo",
+    tagline: "IoT monitoring for stingless beehives",
+    kind: "Capstone, rebuilt",
+    year: "2026",
+    summary: "ESP8266 sensors report hive temperature, humidity and weight to a live dashboard.",
+    notes: [
+      "Rebuilt our PHP capstone as a multi-tenant Next.js app",
+      "Key-authenticated sensor API, alerts and harvest reports",
+      "I built the web UI and programmed the sensors",
+    ],
+    stack: ["Next.js", "TypeScript", "Drizzle", "PostgreSQL", "ESP8266"],
+    image: {
+      src: "/images/beemo-banner.webp",
+      alt: "BeeMo hive monitoring dashboard on desktop and mobile",
+      w: 800,
+      h: 435,
+    },
+    live: "https://beemo-web.vercel.app/demo",
+    code: "https://github.com/Renz-Eryll/beemo_v2",
+  },
+  {
     slug: "cinescope",
     name: "CineScope",
     tagline: "Movie, TV and anime discovery",
@@ -132,50 +176,6 @@ export const FEATURED: Project[] = [
     live: "https://cinescope-webapp.vercel.app",
     code: "https://github.com/Renz-Eryll/CineScope",
   },
-  {
-    slug: "postagram",
-    name: "Postagram",
-    tagline: "Social app on the Next.js App Router",
-    kind: "Personal project",
-    year: "2025",
-    summary: "Posts, likes, follows and notifications — every mutation auth-checked on the server.",
-    notes: [
-      "Optimistic UI with rollback",
-      "Transactional writes with Prisma",
-      "DB constraints block duplicates",
-    ],
-    stack: ["Next.js", "Server Actions", "Prisma", "PostgreSQL", "Clerk"],
-    image: {
-      src: "/images/postagram-thumbnail.svg",
-      alt: "Postagram social feed interface",
-      w: 800,
-      h: 435,
-    },
-    live: "https://postagram-app.vercel.app",
-    code: "https://github.com/Renz-Eryll/Postagram",
-  },
-  {
-    slug: "beemo",
-    name: "BeeMo",
-    tagline: "IoT monitoring for stingless beehives",
-    kind: "Capstone, rebuilt",
-    year: "2026",
-    summary: "ESP8266 sensors report hive temperature, humidity and weight to a live dashboard.",
-    notes: [
-      "Rebuilt our PHP capstone as a multi-tenant Next.js app",
-      "Key-authenticated sensor API, alerts and harvest reports",
-      "I built the web UI and programmed the sensors",
-    ],
-    stack: ["Next.js", "TypeScript", "Drizzle", "PostgreSQL", "ESP8266"],
-    image: {
-      src: "/images/beemo-thumbnail.svg",
-      alt: "BeeMo smart hive monitoring interface",
-      w: 800,
-      h: 435,
-    },
-    live: "https://beemo-hive-monitor.vercel.app/demo",
-    code: "https://github.com/Renz-Eryll/beemo_v2",
-  },
 ];
 
 export type IndexItem = {
@@ -188,6 +188,14 @@ export type IndexItem = {
 };
 
 export const MORE_WORK: IndexItem[] = [
+  {
+    name: "Postagram — Social app",
+    kind: "Full stack",
+    stack: "Next.js · Prisma · PostgreSQL",
+    year: "2025",
+    live: "https://postagram-app.vercel.app",
+    code: "https://github.com/Renz-Eryll/Postagram",
+  },
   {
     name: "SyncIt — File storage & sharing",
     kind: "Full stack",
